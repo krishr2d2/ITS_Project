@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo{{context}}1</h3>
+    {% for details in context%}
+        <h1>{{details.lat_pos}}1</h1>;
+        {% endfor %}
+    <!--div id="map"></div>
+    <script>
+      function initMap() {
+        var positions=[];
+        {% for details in context%}
+        positions.push([{{details.lat_pos}},{{details.lon_pos}}]);
+        {% endfor %}
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        for( i = 0; i < positions.length; i++ ) {
+        var position = new google.maps.LatLng(positions[i][0], positions[i][1]);
+       // bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+           // title: markers[i][0]
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ15BbQwlN0XqfqqeNY6uWNkZt0KtbfP4&callback=initMap">
+    </script-->
+  </body>
+</html>
