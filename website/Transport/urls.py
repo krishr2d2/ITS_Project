@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^driver_accounts/(?P<name_id>[1-6])/$',views.place,name="place"),
     url(r'^user_accounts/',views.user_accounts, name='user_accounts'),
     url(r'^driver_accounts/',views.driver_accounts, name='driver_accounts'),
-    url(r'^alldrivers/',views.alldrivers, name='alldrivers'),#URL which shows all drivers
+    url(r'^allvehicles/',views.allvehicles, name='allvehicles'),#URL which shows all drivers
 ]
