@@ -29,7 +29,12 @@ def place(request,name_id):
     "temp_veh_liv":temp_veh_liv,
     }
     return render(request,"Transport/place.html",a)
-
+def allvehicles(request):
+    vehicle_lives=vehicle_live.objects.all()
+    context={
+        "vehicle_lives":vehicle_lives,
+    }
+    return render(request,"Transport/allvehicles.html",context)
 def vehicle_details(request):
     vehi = vehicle.objects.all()
     context = {
@@ -102,6 +107,6 @@ def driver_accounts(request):
     print num_records
     driver_cont = {
     "my_driv":temp_driver_acc,
-    "total" : num_records
+    "total" : num_records,
     }
     return render(request, "Transport/driv_acc.html",driver_cont)
