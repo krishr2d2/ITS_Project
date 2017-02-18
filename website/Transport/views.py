@@ -76,6 +76,8 @@ def alldrivers(request):                                        #display all dri
 
 def allvehicles(request):                                       #To display all drivers
     vehicles = Vehicle.objects.all()                            #gets all vehicle details
+    #vehicles = Vehicle.objects.all().count();
+    print vehicles
     context  = {                    
         "vehicles":vehicles,
     }

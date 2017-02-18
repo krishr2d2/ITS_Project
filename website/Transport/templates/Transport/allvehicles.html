@@ -18,8 +18,8 @@
     <script>
       function initMap() {
         var positions=[];
-        {% for details in vehicle_lives%}
-        positions.push([{{details.lat_pos}},{{details.lon_pos}},{{details.vehicle.id}},]);
+        {% for details in active_vehicles %}
+        positions.push([{{details.vehicle_latitude}},{{details.vehicle_longitude}},{{details.id}},]);
         {% endfor %}
         var uluru = new google.maps.LatLng(positions[0][0], positions[0][1]);
         var map = new google.maps.Map(document.getElementById('map'), {
