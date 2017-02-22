@@ -327,7 +327,7 @@ Drivers</a>
                                 <tbody>
                                     {%for vehicle in vehicles%}
                                     <tr class="odd gradeX">
-                                        <td>{{vehicle.Vehicle_name}}</td>
+                                        <td><a href="/Transport/vehicle_details/{{vehicle.id}}">{{vehicle.Vehicle_name}}</a></td>
                                         <td>{{vehicle.Vehicle_rc}}</td>
                                     </tr>
                                     {%endfor%}

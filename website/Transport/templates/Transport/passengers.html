@@ -328,7 +328,7 @@ Drivers</a>
                                 <tbody>
                                     {%for passenger in passengers%}
                                         <tr class="odd gradeX">
-                                            <td>{{passenger.Passenger_My_user.My_user_name}}</td>
+                                            <td><a href="/Transport/passenger_details/{{passenger.id}}">{{passenger.Passenger_My_user.My_user_name}}</a></td>
                                             <td>{{passenger.Passenger_My_user.My_user_phone}}</td>
                                             <td>{{passenger.Passenger_My_user.My_user_email}}</td>
                                         </tr>

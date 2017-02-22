@@ -103,14 +103,16 @@ def vehicle_details(request,name_id):                           #Details of vehi
     context = {
      "vehicle":vehicle,
      }
-    return render(request,"Transport/vehicle_details.html",context)
+    return render(request,"Transport/vehicle.html",context)
 
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
     passenger = Passenger.objects.get(id=name_id)
+    bookings  = Booking.objects.get(Booking_passanger__id=name_id)
     context   = {
-        "passenger":passenger
+        "passenger":passenger,
+        "bookings" :bookings
     }
-    return render(request,"Transport/passenger_details.html",context)
+    return render(request,"Transport/passenger.html",context)
 
 '''def Booking(request):
     form = BookingForm()
