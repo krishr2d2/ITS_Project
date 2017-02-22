@@ -64,7 +64,11 @@
         var marker = new google.maps.Marker({
           position: {lat: {{vehicle.Vehicle_latitude}}, lng:{{vehicle.Vehicle_longitude}}},
           map: map,
-          icon:'{% static 'Transport/images/map-icons/car.png'%}'
+          icon:'{% static 'Transport/images/map-icons/car.png'%}',
+          url:'/Transport/vehicle_details/{{vehicle.id}}'
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+                 window.location.href = this.url;
         });
         {%endfor%}
       }
