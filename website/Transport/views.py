@@ -107,7 +107,7 @@ def vehicle_details(request,name_id):                           #Details of vehi
 
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
     passenger = Passenger.objects.get(id=name_id)
-    bookings  = Booking.objects.get(Booking_passanger__id=name_id)
+    bookings  = Booking.objects.get(Booking_passenger__My_user__id=name_id)
     context   = {
         "passenger":passenger,
         "bookings" :bookings
