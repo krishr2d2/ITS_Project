@@ -53,10 +53,17 @@ def logout_user(request):
 
 
 def index(request):
-     if not request.user.is_authenticated():
-           return render(request, 'Transport/login.html')
-     else:
-           return render(request,'Transport/index.html')
+    drivers    = Driver.objects.all()
+    vehicles   = Vehicle.objects.all()                            #gets all vehicle details
+    passengers  = Passenger.objects.all()
+    context    = {
+                    "drivers"   :drivers,
+                    "passengers":passengers,
+                    "vehicles"  :vehicles
+
+                 }
+    return render(request,'Transport/index.html',context)
+     
 
 def allpassengers(request):                                     #displays all passengers
     passengers = Passenger.objects.all()
@@ -96,14 +103,16 @@ def vehicle_details(request,name_id):                           #Details of vehi
     context = {
      "vehicle":vehicle,
      }
-    return render(request,"Transport/vehicle_details.html",context)
+    return render(request,"Transport/vehicle.html",context)
 
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
     passenger = Passenger.objects.get(id=name_id)
+    bookings  = Booking.objects.get(Booking_passenger__My_user__id=name_id)
     context   = {
-        "passenger":passenger
+        "passenger":passenger,
+        "bookings" :bookings
     }
-    return render(request,"Transport/passenger_details.html",context)
+    return render(request,"Transport/passenger.html",context)
 
 '''def Booking(request):
     form = BookingForm()
