@@ -11,61 +11,45 @@ class My_user(models.Model):
         ('M', 'Male'),
         ('F', 'Female'),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    user_name = models.CharField(max_length=250)
-    user_phone = models.IntegerField()
-    user_addr = models.CharField(max_length=250)
-    user_email = models.CharField(max_length=250)
-    #user_gender = models.CharField(max_length=1,choices = GENDER_CHOICES, default='M',null = True)
-    def __unicode__(self):
-        return self.user_name
+    My_user_gender      = models.CharField(max_length=1, choices=GENDER_CHOICES,default=None)
+    My_user_name        = models.CharField(max_length=250,default=None)
+    My_user_phone       = models.IntegerField(default=None)
+    My_user_addr        = models.CharField(max_length=250,default=None)
+    My_user_email       = models.CharField(max_length=250,default=None)
+    My_user_dateOfBirth = models.DateField(default=None,null=True)#To know the age of user
 
-class driver(models.Model):
-    driver_name = models.CharField(max_length=250)
-    driver_phone = models.IntegerField()
-    driver_address = models.CharField(max_length=400)
-    driver_age = models.IntegerField()
+class Vehicle(models.Model):#Stores information about vehicles
+    Vehicle_name      = models.CharField(max_length=200,default=None)
+    Vehicle_latitude  = models.FloatField(default=None)#latitude of vehicle
+    Vehicle_longitude = models.FloatField(default=None)#longitude of vehicle
+    Vehicle_rc        = models.CharField(max_length=200,default=None)#rc of the vehicle
+    Vehicle_active    = models.BooleanField(default=None)#status of vehicle
 
-    vehicle_type = models.CharField(max_length=200)
-    vehicle_reg_num = models.CharField(max_length=200)
-    
-    #temp_obj =  vehicle_live()
-    #temp_obj.vehicle = self
-    #temp_obj.lon_pos = 13.5481095
-    #temp_obj.lat_pos = 80.0091568 
+class Driver(models.Model):#stores all driver details
+    Driver_My_user        = models.ForeignKey(My_user,on_delete=models.CASCADE, default=0,blank=True)#to get all details from My user
+    Driver_currentVehicle = models.ForeignKey(Vehicle,on_delete=models.CASCADE, default=0)
+    Driver_liscence       = models.CharField(max_length=20,default=None)
+    Driver_longitude      = models.FloatField(default=None)#longitude of driver
+    Driver_latitude       = models.FloatField(default=None)#latitude  of driver
+    #driver_currentVehicle gets current detail of vehicle driver
 
-    def __unicode__(self):
-        return '_-|-_'+self.driver_name
+class Passenger(models.Model):#stores all passangers details
+    Passenger_My_user   = models.ForeignKey(My_user,on_delete=models.CASCADE, default=0)#to get all details from My user
+    Passenger_latitude  = models.FloatField(default=None)#current latitude of passenger
+    Passenger_longitude = models.FloatField(default=None)#current longitude of passenger
+    Passenger_active    = models.BooleanField(default=None)#
 
-#class valid_stops(self):
-#    avail_stops = models.CharField(max_length=250)
-#    def __unicode__(self):
-#        return self.stop
+class Valid_stop(models.Model):#This model stores all the valid stops
+    Valid_stop_name      = models.CharField(max_length=50,default=None)#name of the stops
+    Valid_stop_latitude  = models.FloatField(default=None)#latitude of valid stops
+    Valid_stop_longitude = models.FloatField(default=None)#longitude of valid stops
 
-class Bookings(models.Model):
-    startpoint = models.CharField(max_length=250)
-    destination = models.CharField(max_length=200)
-    booked_date=models.DateTimeField()
-    user = models.ForeignKey(My_user, on_delete=models.CASCADE)
-    booked_driver = models.ForeignKey(driver, default = None, on_delete=models.CASCADE)
-    #user_lat = models.FloatField()
-    #user_lon = models.FloatField()
-    booking_status = models.CharField(max_length=50,default='pending')
-
-#class vehicle(models.Model):
-#        vehicle_name = models.CharField(max_length=200)
-#        vehicle_reg_num = models.CharField(max_length=200)
-#        vehicle_type = models.CharField(max_length=200)
-#        #def __str__(self):
-#        def __unicode__(self):
-#            return '---'+self.vehicle_name
-
-class vehicle_live(models.Model):
-    vehicle = models.ForeignKey(driver, on_delete=models.CASCADE)
-    lon_pos = models.FloatField()
-    lat_pos = models.FloatField()
-    time_stamp = models.DateTimeField(default=datetime.now,blank=True)
-    #def __str __(self):
-    def __unicode__(self):
-        return "{0}--@--{1}".format(self.vehicle.driver_name,self.time_stamp)
+class Booking(models.Model):#Stores all the information about bookings
+    Booking_startpoint  = models.ForeignKey(Valid_stop,default=0,on_delete=models.CASCADE,related_name='%(class)s_starting_point')#starting point of booking
+    Booking_destination = models.ForeignKey(Valid_stop, default=0,on_delete=models.CASCADE,related_name='%(class)s_destination_point')#ending point of booking
+    Booking_date        = models.DateTimeField(auto_now_add=True)
+    Booking_passenger   = models.ForeignKey(Passenger, default=0,on_delete=models.CASCADE)#passanger
+    Booking_vehicle     = models.ForeignKey(Vehicle,default=0,on_delete=models.CASCADE)#vehicle booked
+    Booking_status      = models.CharField(max_length=50,default=None)
+    #booking_driver      = models.ForeignKey(driver,on_delete=models.CASCADE)#driver of the vehicle at the time of booking
 
