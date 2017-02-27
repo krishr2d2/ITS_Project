@@ -1,9 +1,14 @@
+from django.test import LiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions
 from django.core.urlresolvers import resolve,reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.test import TestCase, Client
 from django.http import HttpRequest
 from Transport.views import index, login
+from time import sleep
 
 class HomePageTest(TestCase):
     
@@ -34,3 +39,44 @@ class HomePageTest(TestCase):
         login3 = self.c.login(username='testy',password='hell')
         # login3 == False implies the user's credentials are invalid...
         self.assertTrue(not login3 and user3 != None)
+
+# To run this automated test case, you must install geckodriver that lets selenium access to your browser
+# otherwise you'd get an import error...for 'from selenium import Webdriver' line.
+
+class AccountTestCase(LiveServerTestCase):
+
+    def setUp(self):
+        self.selenium = webdriver.Firefox()
+
+    def tearDown(self):
+        self.selenium.quit()
+        
+    def test_gprs(self):
+        selenium = self.selenium
+        selenium.get('http://127.0.0.1:8000/Transport/login')
+        username = selenium.find_element_by_id('id_username')
+        password = selenium.find_element_by_id('id_password')
+        submit = selenium.find_element_by_class_name('btn-success')
+        username.send_keys('krishr2d2')
+        password.send_keys('mkc@r2d2')
+        submit.send_keys(Keys.RETURN)
+        assert "Log In" in selenium.title
+        selenium.get('http://127:0.0.1:8000/Transport/index')
+        assert "Transportation" in selenium.title
+
+        selenium.get('http://127.0.0.1:8000/Transport/driver_accounts/1/')
+        main_window = selenium.current_window_handle
+        selenium.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 't')
+
+        steps = 0
+        initial_lat = 13.550779
+        initial_lon = 80.014409
+        step_size = 0.001000
+        while (steps < 15):
+            initial_lat += step_size
+            selenium.switch_to_window(selenium.window_handles[1])
+            selenium.get('http://127.0.0.1:8000/locate/AP03AY8532/'+str(initial_lat)+'/'+str(initial_lon)+'/')
+            selenium.switch_to_window(main_window)
+            selenium.get('http://127.0.0.1:8000/Transport/driver_accounts/1/')
+            sleep(1)
+            steps += 1

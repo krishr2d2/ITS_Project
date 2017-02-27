@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 #    'geoposition',
+    'mylogin',
     'locate_me',
     'Transport',
     'django.contrib.admin',
