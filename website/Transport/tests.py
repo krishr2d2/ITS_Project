@@ -40,6 +40,9 @@ class HomePageTest(TestCase):
         # login3 == False implies the user's credentials are invalid...
         self.assertTrue(not login3 and user3 != None)
 
+# To run this automated test case, you must install geckodriver that lets selenium access to your browser
+# otherwise you'd get an import error...for 'from selenium import Webdriver' line.
+
 class AccountTestCase(LiveServerTestCase):
 
     def setUp(self):

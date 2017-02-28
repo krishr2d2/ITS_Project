@@ -1,6 +1,54 @@
-{% extends 'Transport/base_visitor1.html' %}
-{% block albums_active %}active{% endblock %}
+{% extends 'Transport/base.html' %}
 
-{% block body %}
-<h3>Wel-come to transportation</h3>
-{% endblock %}
+<html lang="en">
+ {% load staticfiles %}
+    {%block content1%}
+
+    <style>
+      #map {
+        height: 500px;
+        width: 100%;
+        margin-top: 3%
+       }
+    </style>
+    {%endblock%}
+
+{%block mapcontent%}
+
+    <script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat:13.549349,lng:79.9995459}
+        });
+        {% for passenger in passengers %}
+        var marker = new google.maps.Marker({
+          position: {lat: {{passenger.Passenger_latitude}}, lng:{{passenger.Passenger_longitude}}},
+          map: map,
+          icon:'{% static 'Transport/images/map-icons/male-2.png'%}'
+        });
+        {%endfor%}
+        {% for vehicle in vehicles %}
+        var marker = new google.maps.Marker({
+          position: {lat: {{vehicle.Vehicle_latitude}}, lng:{{vehicle.Vehicle_longitude}}},
+          map: map,
+          icon:'{% static 'Transport/images/map-icons/car.png'%}',
+          url:'/Transport/vehicle_details/{{vehicle.id}}'
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+                 window.location.href = this.url;
+        });
+        {%endfor%}
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ15BbQwlN0XqfqqeNY6uWNkZt0KtbfP4&callback=initMap">
+    </script>
+    {%endblock%}
+    {%block mapid%}
+    <div id="map"> </div>
+    {%endblock%}
+
+</html>

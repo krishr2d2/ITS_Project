@@ -7,9 +7,9 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from Transport.models import *
-# Create your views here.
 from Transport.forms import *
 
+<<<<<<< HEAD
 def index(request):
      if not request.user.is_authenticated():
            return render(request, 'mylogin/login.html')
@@ -47,13 +47,26 @@ def vehicle_details(request):
      }
     return render(request,"Transport/vehicle_details.html",context)
 
+=======
+def register(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.save()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+>>>>>>> 184665029f4a676d1202a6bbec499b9f20b9173c
 
-def Booking(request):
-    form = BookingForm()
+                return render(request, 'Transport/index.html')
     context = {
-    "form": form,
+        "form": form,
     }
-    return render(request,"Transport/Booking.html",context)
+    return render(request, 'Transport/register.html', context)
 
 def login_user(request):
     if request.method == "POST":
@@ -80,25 +93,59 @@ def logout_user(request):
     return render(request, 'Transport/login.html', context)
 
 
-def register(request):
-    form = UserForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        user.set_password(password)
-        user.save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
+def index(request):
 
-                return render(request, 'Transport/index.html')
-    context = {
-        "form": form,
+    if not request.user.is_authenticated():
+	return render(request,'mylogin/login.html')
+    
+    else:
+    	drivers    = Driver.objects.all()
+    	vehicles   = Vehicle.objects.all()                            #gets all vehicle details
+    	passengers  = Passenger.objects.all()
+    	context    = {
+                    "drivers"   :drivers,
+                    "passengers":passengers,
+                    "vehicles"  :vehicles
+
+                 }
+    	return render(request,'Transport/index.html',context)
+
+     
+
+def allpassengers(request):                                     #displays all passengers
+    passengers = Passenger.objects.all()
+    context    = {
+        "passengers":passengers,
     }
-    return render(request, 'Transport/register.html', context)
+    return render(request,"Transport/passengers.html",context)
 
+def alldrivers(request):                                        #display all drivers
+    drivers = Driver.objects.all()
+    count_Drivers = range(1,drivers.count()+1)
+    context = {
+    "drivers":drivers,
+    "count_Drivers" : count_Drivers,
+    }
+    return render(request, "Transport/drivers.html",context)
+
+def allvehicles(request):                                       #To display all drivers
+    vehicles = Vehicle.objects.all()                            #gets all vehicle details
+    #vehicles = Vehicle.objects.all().count();
+    print vehicles
+    context  = {                    
+        "vehicles":vehicles,
+    }
+    return render(request,"Transport/vehicles.html",context)
+
+
+def driver_details(request,name_id):                            #Details of driver with name_id as id
+    driver  = Driver.objects.get(id=name_id)
+    context = {
+    "driver" : driver,
+    }
+    return render(request,"Transport/driver.html",context)
+
+<<<<<<< HEAD
 @login_required
 def user_accounts(request):
     temp_user_acc = My_user.objects.all()
@@ -115,5 +162,30 @@ def driver_accounts(request):
     driver_cont = {
     "my_driv":temp_driver_acc,
     "total" : num_records,
+=======
+def vehicle_details(request,name_id):                           #Details of vehicle with id name_id
+    vehicle = Vehicle.objects.get(id=name_id)
+    context = {
+     "vehicle":vehicle,
+     }
+    return render(request,"Transport/vehicle.html",context)
+
+def passenger_details(request,name_id):                         #Details of passenger with id name_id
+    passenger = Passenger.objects.get(id=name_id)
+    bookings  = Booking.objects.get(Booking_passenger__My_user__id=name_id)
+    context   = {
+        "passenger":passenger,
+        "bookings" :bookings
+>>>>>>> 184665029f4a676d1202a6bbec499b9f20b9173c
     }
-    return render(request, "Transport/driv_acc.html",driver_cont)
+    return render(request,"Transport/passenger.html",context)
+
+'''def Booking(request):
+    form = BookingForm()
+    context = {
+    "form": form,
+    }
+    return render(request,"Transport/Booking.html",context)'''
+
+
+

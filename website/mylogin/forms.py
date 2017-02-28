@@ -27,3 +27,7 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username','email','password1','password2']
+<<<<<<< HEAD
+=======
+
+>>>>>>> 184665029f4a676d1202a6bbec499b9f20b9173c
