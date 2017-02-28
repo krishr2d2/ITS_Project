@@ -53,6 +53,7 @@ def logout_user(request):
 
 
 def index(request):
+
     if not request.user.is_authenticated():
 	return render(request,'mylogin/login.html')
     
@@ -67,6 +68,7 @@ def index(request):
 
                  }
     	return render(request,'Transport/index.html',context)
+
      
 
 def allpassengers(request):                                     #displays all passengers

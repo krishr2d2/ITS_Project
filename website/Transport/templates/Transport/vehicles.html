@@ -1,9 +1,11 @@
+
 {%extends 'Transport/base.html'%}
 <html lang="en">
 
 {% load staticfiles %}<!--load static files-->
 {%block mapid%}
             <h1 class="page-header"></h1>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -38,8 +40,10 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+
             {%endblock%}
 {%block drivertable%}            
+
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -47,6 +51,9 @@
         });
     });
     </script>
+
 {%endblock%}
+
+
 
 </html>

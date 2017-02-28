@@ -5,6 +5,7 @@
     
      {%block mapid%}
       <h1 class="page-header"></h1>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -27,7 +28,9 @@
                                 <tbody>
                                     {%for driver in drivers%}
                                     <tr class="odd gradeC">
+
                                                 
+
                                         <td>{{driver.Driver_My_user.My_user_name}}</td>
                                         <td>{{driver.Driver_My_user.My_user_phone}}</td>
                                         <td>{{driver.Driver_currentVehicle.Vehicle_name}}</td>
@@ -42,11 +45,13 @@
                         </div>
                         <!-- /.panel-body -->
                     </div>
+
                     </div>
                     </div>
     {%endblock%}
 
 {%block drivertable%}
+
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -54,5 +59,7 @@
         });
     });
     </script>
+
 {%endblock%}
+
 </html>
