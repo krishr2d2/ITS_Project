@@ -53,16 +53,22 @@ def logout_user(request):
 
 
 def index(request):
-    drivers    = Driver.objects.all()
-    vehicles   = Vehicle.objects.all()                            #gets all vehicle details
-    passengers  = Passenger.objects.all()
-    context    = {
+
+    if not request.user.is_authenticated():
+	return render(request,'mylogin/login.html')
+    
+    else:
+    	drivers    = Driver.objects.all()
+    	vehicles   = Vehicle.objects.all()                            #gets all vehicle details
+    	passengers  = Passenger.objects.all()
+    	context    = {
                     "drivers"   :drivers,
                     "passengers":passengers,
                     "vehicles"  :vehicles
 
                  }
-    return render(request,'Transport/index.html',context)
+    	return render(request,'Transport/index.html',context)
+
      
 
 def allpassengers(request):                                     #displays all passengers
