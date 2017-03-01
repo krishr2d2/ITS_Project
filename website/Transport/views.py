@@ -113,13 +113,20 @@ def vehicle_details(request,name_id):                           #Details of vehi
     return render(request,"Transport/vehicle.html",context)
 
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
-    passenger = Passenger.objects.get(id=name_id)
-    bookings  = Booking.objects.get(Booking_passenger__My_user__id=name_id)
-    context   = {
-        "passenger":passenger,
-        "bookings" :bookings
-    }
-    return render(request,"Transport/passenger.html",context)
+
+        passenger = Passenger.objects.get(id=name_id)
+        
+        try:
+            bookings  = Booking.objects.get(Booking_passenger__My_user__id=name_id)
+        except:
+            bookings  = None
+            
+        context   = {
+            "passenger":passenger,
+            "bookings" :bookings
+        }
+
+        return render(request,"Transport/passenger.html",context)
 
 '''def Booking(request):
     form = BookingForm()
