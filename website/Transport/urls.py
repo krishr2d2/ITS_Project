@@ -16,5 +16,4 @@ urlpatterns = [
     url(r'^passenger_details/(?P<name_id>[1-6])/$',views.passenger_details,name="passenger_details"),
     url(r'^driver_details/(?P<name_id>[1-6])/$',views.driver_details,name="driver_details"),
     url(r'^vehicle_details/(?P<name_id>[1-6])/$',views.vehicle_details,name="vehicle_details"),
-
 ]

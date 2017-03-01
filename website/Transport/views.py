@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from Transport.models import *
 from Transport.forms import *
@@ -37,9 +38,9 @@ def login_user(request):
                 login(request, user)
                 return render(request, 'Transport/index.html')
             else:
-                return render(request, 'Transport/login.html', {'error_message': 'Your account has been disabled'})
+                return render(request, 'mylogin/login.html', {'error_message': 'Your account has been disabled'})
         else:
-            return render(request, 'Transport/login.html', {'error_message': 'Invalid login'})
+            return render(request, 'mylogin/login.html', {'error_message': 'Invalid login'})
     return render(request, 'Transport/login.html')
 
 

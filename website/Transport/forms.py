@@ -14,3 +14,4 @@ class UserForm(forms.ModelForm):
 #    class Meta:
 #	model = Booking
 #	fields = ['startpoint','destination','date']
+#forms.py
