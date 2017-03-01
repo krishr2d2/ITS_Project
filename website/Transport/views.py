@@ -9,45 +9,6 @@ from django.db.models import Q
 from Transport.models import *
 from Transport.forms import *
 
-<<<<<<< HEAD
-def index(request):
-     if not request.user.is_authenticated():
-           return render(request, 'mylogin/login.html')
-     else:
-           return render(request,'Transport/index.html')
-
-@login_required
-def place(request,name_id):
-    temp_veh = driver.objects.get(id=name_id)
-    temp_veh_liv = vehicle_live.objects.get(vehicle = temp_veh)
-    #if (temp_veh_liv == None):
-    #    temp_veh_liv = vehicle_live()
-    #    temp_veh_liv.vehicle = temp_veh
-    #    temp_veh_liv.lon_pos = 80.0091568
-    #    temp_veh_liv.lat_pos = 13.5481095
-    #    temp_veh.save()
-    a = {
-    "temp_veh_liv":temp_veh_liv,
-    }
-    return render(request,"Transport/place.html",a)
-
-@login_required
-def allvehicles(request):
-    vehicle_lives=vehicle_live.objects.all()
-    context={
-        "vehicle_lives":vehicle_lives,
-    }
-    return render(request,"Transport/allvehicles.html",context)
-
-@login_required
-def vehicle_details(request):
-    vehi = vehicle.objects.all()
-    context = {
-     "vehi":vehi,
-     }
-    return render(request,"Transport/vehicle_details.html",context)
-
-=======
 def register(request):
     form = UserForm(request.POST or None)
     if form.is_valid():
@@ -60,7 +21,6 @@ def register(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
->>>>>>> 184665029f4a676d1202a6bbec499b9f20b9173c
 
                 return render(request, 'Transport/index.html')
     context = {
@@ -145,24 +105,6 @@ def driver_details(request,name_id):                            #Details of driv
     }
     return render(request,"Transport/driver.html",context)
 
-<<<<<<< HEAD
-@login_required
-def user_accounts(request):
-    temp_user_acc = My_user.objects.all()
-    usr_cont = {
-     "my_usr":temp_user_acc,
-     }
-    return render(request,"Transport/usr_acc.html",usr_cont)
-
-@login_required
-def driver_accounts(request):
-    temp_driver_acc = driver.objects.all()
-    num_records = range(1,temp_driver_acc.count()+1)
-    print num_records
-    driver_cont = {
-    "my_driv":temp_driver_acc,
-    "total" : num_records,
-=======
 def vehicle_details(request,name_id):                           #Details of vehicle with id name_id
     vehicle = Vehicle.objects.get(id=name_id)
     context = {
@@ -176,7 +118,6 @@ def passenger_details(request,name_id):                         #Details of pass
     context   = {
         "passenger":passenger,
         "bookings" :bookings
->>>>>>> 184665029f4a676d1202a6bbec499b9f20b9173c
     }
     return render(request,"Transport/passenger.html",context)
 
