@@ -57,8 +57,8 @@ class AccountTestCase(LiveServerTestCase):
         username = selenium.find_element_by_id('id_username')
         password = selenium.find_element_by_id('id_password')
         submit = selenium.find_element_by_class_name('btn-success')
-        username.send_keys('krishr2d2')
-        password.send_keys('mkc@r2d2')
+        username.send_keys('root')
+        password.send_keys('iiits@123')
         submit.send_keys(Keys.RETURN)
         assert "Log In" in selenium.title
         selenium.get('http://127:0.0.1:8000/Transport/index')
