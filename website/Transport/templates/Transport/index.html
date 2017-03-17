@@ -37,9 +37,30 @@
           icon:'{% static 'Transport/images/map-icons/car.png'%}',
           url:'/Transport/vehicle_details/{{vehicle.id}}'
         });
+        var content = '{{vehicle.id}}'
+        {% for  driver in drivers%}
+        {% ifequal driver.Driver_currentVehicle_id vehicle.id%}
+          var content='<b>{{driver.Driver_My_user.My_user_name}}</b><br>{{vehicle.Vehicle_name}}<br>{{vehicle.Vehicle_rc}}'
+        {%endifequal%}
+        {%endfor%}
+
+        var infowindow = new google.maps.InfoWindow()
+    
         google.maps.event.addListener(marker, 'click', function() {
                  window.location.href = this.url;
         });
+        google.maps.event.addListener(marker,'mouseover', (function(marker,content,infowindow){ 
+        return function() {
+           infowindow.setContent(content);
+           infowindow.open(map,marker);
+        };
+    })(marker,content,infowindow)); 
+                google.maps.event.addListener(marker,'mouseout', (function(marker,content,infowindow){ 
+        return function() {
+           
+           infowindow.close();
+        };
+    })(marker,content,infowindow)); 
         {%endfor%}
       }
 
