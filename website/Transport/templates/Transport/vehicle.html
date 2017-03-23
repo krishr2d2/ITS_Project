@@ -13,10 +13,10 @@
     {% endblock %}
 
         {% block mapid %}
-            <div class="container-fluid">
-		    <h1 class="page-header" style="top: 3%;">Vehicle details</h1>
+            <div class="container-fluid" style="height: 120px;">
+		    <h1 class="page-header" style="top: 19%; position: sticky;">Vehicle details</h1>
 			    
-		    <h2> <div style="position: fixed;left: 52%;top:27%">Track</div></h2>
+		    <h2> <div style="position: fixed;left: 52%;top:18%">Track</div></h2>
 
 		    <!--<div class="row" style="margin-top: 1%">-->
                     <div class="col-lg-12">
@@ -117,9 +117,9 @@
                                         {%for booking in bookings%}
                                         <tr class="odd gradeX">
                                             <td>{{booking.Booking_date}}</a></td>
-                                            <td><a href="/Transport/passenger_details/{{booking.Booking_passanger.Passenger_My_user.My_user.id}}">{{booking.Booking_passanger.Passenger_My_user.My_user_name}}</a></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><a href="/Transport/passenger_details/{{booking.Booking_passanger.Passenger_My_user.My_user.id}}">{{booking.Booking_passenger.Passenger_My_user.My_user_name}}</a></td>
+                                            <td>{{booking.Booking_startpoint}}</td>
+                                            <td>{{booking.Booking_destination}}</td>
                                             <td>{{booking.Booking_status}}</td>                                         
                                         </tr>
                                         {%endfor%}                                   

@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login/$', logviews.login_user, name='login_user'),
     url(r'^register/success/$',logviews.register_success),
     url(r'^logout_user/$', logviews.logout_user, name='logout_user'),
+    #url(r'logout_user/$', views.new_login, name='new_login'),
 
     url(r'^allpassengers/',views.allpassengers, name='allpassengers'),    
     url(r'^alldrivers/',views.alldrivers, name='alldrivers'),

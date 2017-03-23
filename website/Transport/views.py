@@ -53,6 +53,9 @@ def logout_user(request):
     return render(request, 'Transport/login.html', context)
 
 
+def new_login(request):
+    return render(request,'Transport/loggyn.html',{})     
+
 def index(request):
 
     if not request.user.is_authenticated():
