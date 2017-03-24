@@ -5,8 +5,8 @@
     {%block content1%}
     <style>
       #map {
-        height: 400px;
-        width: 67%;
+        height: 66%;
+        width: 73%;
        }
     </style>
     <title>Vehicle</title>
@@ -60,10 +60,10 @@
                 </div>
                     <!-- /.col-lg-12 -->
                 <div class="row" style="padding-top: 43%">
-                     <div id="map" style="position: absolute;left: 26%;top:24%">                     
+                     <div id="map" style="position: absolute;left: 22%;top:23%">                     
                             </div>
 <!-- 							Edit  from this line 				-->
-				<div class="col-lg-12" style="position: absolute; width: 81%; top: 91%;">
+				<div class="col-lg-12" style="position: absolute; width: 81%; top: 95%;">
                         <div class="panel panel-default">
 				
                        
@@ -145,7 +145,7 @@
         <script>
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
+          zoom: 14,
           center: {lat: {{vehicle.Vehicle_latitude}}, lng: {{vehicle.Vehicle_longitude}}}
         });
         var marker = new google.maps.Marker({
