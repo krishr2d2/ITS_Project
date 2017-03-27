@@ -121,7 +121,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
+LOGIN_URL = '/Transport/login/'
 STATIC_URL = '/static/'
 
 #GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDbkk0HtQCahNP-def8EL0mZOahD8ChuZU'

@@ -74,7 +74,7 @@ def index(request):
     	return render(request,'Transport/index.html',context)
 
      
-
+@login_required
 def allpassengers(request):                                     #displays all passengers
     passengers = Passenger.objects.all()
     context    = {
@@ -82,6 +82,7 @@ def allpassengers(request):                                     #displays all pa
     }
     return render(request,"Transport/passengers.html",context)
 
+@login_required
 def alldrivers(request):                                        #display all drivers
     drivers = Driver.objects.all()
     count_Drivers = range(1,drivers.count()+1)
@@ -91,6 +92,7 @@ def alldrivers(request):                                        #display all dri
     }
     return render(request, "Transport/drivers.html",context)
 
+@login_required
 def allvehicles(request):                                       #To display all drivers
     vehicles = Vehicle.objects.all()                            #gets all vehicle details
     #vehicles = Vehicle.objects.all().count();
@@ -100,7 +102,7 @@ def allvehicles(request):                                       #To display all 
     }
     return render(request,"Transport/vehicles.html",context)
 
-
+@login_required
 def driver_details(request,name_id):                            #Details of driver with name_id as id
     driver  = Driver.objects.get(id=name_id)
     context = {
@@ -108,6 +110,7 @@ def driver_details(request,name_id):                            #Details of driv
     }
     return render(request,"Transport/driver.html",context)
 
+@login_required
 def vehicle_details(request,name_id):                           #Details of vehicle with id name_id
         vehicle = Vehicle.objects.get(id=name_id)
         try:
@@ -124,6 +127,7 @@ def vehicle_details(request,name_id):                           #Details of vehi
 
         return render(request,"Transport/vehicle.html",context)
 
+@login_required
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
 
         passenger = Passenger.objects.get(id=name_id)

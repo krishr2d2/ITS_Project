@@ -61,7 +61,7 @@ class Booking(models.Model):#Stores all the information about bookings
     Booking_destination = models.CharField(max_length = 50,default=None)#ending point of booking
     Booking_date        = models.DateTimeField(auto_now_add=True)
     Booking_passenger   = models.ForeignKey(Passenger, default=0,on_delete=models.CASCADE)#passanger
-    Booking_vehicle     = models.ForeignKey(Vehicle,default=None,on_delete=models.CASCADE,blank=True)#vehicle booked
+    Booking_vehicle     = models.ForeignKey(Vehicle,null=True,on_delete=models.CASCADE,blank=True)#vehicle booked
     Booking_status      = models.CharField(max_length=50,default='Pending')
     #booking_driver      = models.ForeignKey(driver,on_delete=models.CASCADE)#driver of the vehicle at the time of booking
     def __str__(self):
