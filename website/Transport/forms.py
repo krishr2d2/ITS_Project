@@ -10,8 +10,8 @@ class UserForm(forms.ModelForm):
         fields = ['username', 'email', 'password']
 
 
-#class BookingForm(forms.ModelForm):
-#    class Meta:
-#	model = Booking
-#	fields = ['startpoint','destination','date']
+class UpdateDriver(forms.ModelForm):
+   	class Meta:
+ 		model = updatedriver
+ 		fields = ['drivername','driveremail','driveraddr','driverphone']
 #forms.py

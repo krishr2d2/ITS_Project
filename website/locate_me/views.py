@@ -11,18 +11,6 @@ firebase = pyrebase.initialize_app(config);
 db = firebase.database()
 def index(request,vehi,lat,lon):
     try:
-        # temp_veh = driver.objects.get(vehicle_reg_num=vehi)
-        # try:
-        #     temp_veh_liv = vehicle_live.objects.get(vehicle = temp_veh)
-        #     temp_veh_liv.delete()
-        # except vehicle_live.DoesNotExist :
-        #     temp_veh_liv = None
-
-        # temp_veh_liv = vehicle_live()
-        # temp_veh_liv.vehicle = temp_veh
-        # temp_veh_liv.lon_pos = lon
-        # temp_veh_liv.lat_pos = lat
-        # temp_veh_liv.save()
         lat = float(lat)
         lon = float(lon)
         if (lat/1000 != 1.0 or lon/1000 != 1.0):

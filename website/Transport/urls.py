@@ -18,5 +18,5 @@ urlpatterns = [
     url(r'^driver_details/(?P<name_id>car_[1-6])/$',views.driver_details,name="driver_details"),#### not used....
     url(r'^vehicle_details/(?P<name_id>car_[1-6])/$',views.vehicle_details,name="vehicle_details"),
     ####
-    url(r'^update_driver/$',views.update_driver,name='update_driver'),
+    url(r'^update_driver/(?P<name_id>car_[1-6])/$',views.update_driver,name="update_driver"),
 ]

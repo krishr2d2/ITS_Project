@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.http import JsonResponse
@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from Transport.models import *
 from Transport.forms import *
+from django import forms
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 import pyrebase
 config = {
     "apiKey": "AIzaSyAQHHnCqr-3FajALfmpg19PS44fsB6XkBA",
@@ -159,10 +162,23 @@ def vehicle_details(request,name_id):                           #Details of vehi
         return render(request,"Transport/vehicle.html",context)
 
 @login_required
-def update_driver(request):
+def update_driver(request,name_id):
+    if(request.method == "POST"):
+        form = UpdateDriver(request.POST)
+        if form.is_valid():
+            drivername = form.cleaned_data['drivername']
+            driveremail = form.cleaned_data['driveremail']
+            driveraddr = form.cleaned_data['driveraddr']
+            driverphone = form.cleaned_data['driverphone']
 
-    return render(request, "Transport/update_driver.html")
+            db.child("My_user").child("Driver").child(name_id).update({"Driver_name":drivername, "Driver_email":driveremail,"Driver_address":driveraddr,"phone":driverphone})
+            # print 'yes__soka'   
 
+            return HttpResponseRedirect('/Transport/allvehicles')
+    else:
+        # print 
+        form = UpdateDriver()
+    return render(request, "Transport/update_driver.html",{'form':form,'name':name_id})
 @login_required
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
 
@@ -187,13 +203,6 @@ def passenger_details(request,name_id):                         #Details of pass
         }
 
         return render(request,"Transport/passenger.html",context)
-
-'''def Booking(request):
-    form = BookingForm()
-    context = {
-    "form": form,
-    }
-    return render(request,"Transport/Booking.html",context)'''
 
 
 

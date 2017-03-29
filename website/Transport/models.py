@@ -67,4 +67,10 @@ class Booking(models.Model):#Stores all the information about bookings
     def __str__(self):
         return '^'+str(self.Booking_date)
 
+class updatedriver(models.Model):
+    drivername = models.CharField(max_length =100,default = None)
+    driveremail = models.CharField(max_length =100,default = None)
+    driveraddr = models.CharField(max_length =100,default = None)
+    driverphone = models.CharField(max_length =100,default = None)
+
 
