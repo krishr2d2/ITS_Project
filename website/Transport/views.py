@@ -86,7 +86,7 @@ def index(request):
 
                  }
         context['drivs'] = filter(lambda a: a!= None, context['drivs'])
-        print passengers[0]
+        # print passengers[0]
         return render(request,'Transport/index.html',context)
 
      
