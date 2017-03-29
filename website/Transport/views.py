@@ -75,17 +75,18 @@ def index(request):
         fire_rider = db.child("My_user/Rider/").get()
         # drivers    = Driver.objects.all()  
         # vehicles   = Vehicle.objects.all()                       
-        passengers  = Passenger.objects.all()
+        passengers  = [[p.key(),p.val()] for p in fire_rider.each()]
+        passengers = filter(lambda a: a[1]!= None, passengers)
         context    = {
                     # "drivers"   :drivers,
                     # "passengers":passengers,
                     # "vehicles"  :vehicles,
                     "drivs" : [p.val() for p in fire_vehi.each()],
-                    "riders"  : [p.val() for p in fire_rider.each()]
+                    "riders"  : passengers
 
                  }
         context['drivs'] = filter(lambda a: a!= None, context['drivs'])
-        context['riders'] = filter(lambda a: a!= None, context['riders'])
+        print passengers[0]
         return render(request,'Transport/index.html',context)
 
      
@@ -132,17 +133,17 @@ def vehicle_details(request,name_id):                           #Details of vehi
         print name_id
         vehicle = db.child("My_user/Driver/"+str(name_id)).get()
         riders = db.child("My_user/Rider/").get()
-        l = [p.val() for p in riders.each()]
-        l = filter(lambda a: a!= None, l)
+        l = [[p.key(),p.val()] for p in riders.each()]
+        l = filter(lambda a: a[1]!= None, l)
         books = []
         try:
             # bookings  = Booking.objects.filter(Booking_vehicle=vehicle)
             for j in l:
-                if ('Booking' in j):
-                    for ids in j['Booking']:
-                        if ('vehicle' in j['Booking'][ids]):
-                            if (j['Booking'][ids]['vehicle'] == name_id):
-                                books.append([j['name'],j['Booking'][ids]])
+                if ('Booking' in j[1]):
+                    for ids in j[1]['Booking']:
+                        if ('vehicle' in j[1]['Booking'][ids]):
+                            if (j[1]['Booking'][ids]['vehicle'] == name_id):
+                                books.append([j[1]['name'],j[1]['Booking'][ids],j[0]])
 
         except:
             books  = [-1]
@@ -150,16 +151,16 @@ def vehicle_details(request,name_id):                           #Details of vehi
 
         context = {
         #"vehi_driver":vehi_driver,
-        "vehi":{p.key():p.val() for p in vehicle.each()},
+        "vehi":{p.key():p.val() for p in vehicle.each() if p.val() != None},
         "bookings":books,
         }
         # context['vehi'] = filter(lambda a: a!= None, context['vehi'])
-        print context['vehi']
+        # print context['vehi']
         return render(request,"Transport/vehicle.html",context)
 
 @login_required
 def update_driver(request):
-    
+
     return render(request, "Transport/update_driver.html")
 
 @login_required

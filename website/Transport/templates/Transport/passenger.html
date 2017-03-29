@@ -99,7 +99,8 @@
                                             <td>{{bos.Start}}</td>
                                             <td>{{bos.End}}</td>
                                             {% if bos.vehicle != None %}
-                                                <td>{{bos.vehicle}}</td>
+                                                <td><a href="/Transport/vehicle_details/{{bos.vehicle}}">{{bos.vehicle}}</a></td>
+                                                <!-- <td>{{bos.vehicle}}</td> -->
                                             {% else %}
                                                 <td>None</td>
                                             {% endif %}
