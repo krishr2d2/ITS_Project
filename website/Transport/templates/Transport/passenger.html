@@ -18,7 +18,7 @@
         
             <div class="container-fluid">
                     <!-- <h1 class="page-header" >Passenger details<div style="float: right;position: absolute;right: 5%;top:15%">Track</div></h1> -->
-                    <h1 style="top: 100%;margin-top: 8%;text-align: center; " class="page-header">Passenger Details </h1>
+                    <h1 style="top: 8%; position: sticky;" class="page-header">Passenger Details <div style="float: right; position: absolute; right: 5%; top: 8%;">Track</div></h1>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -36,20 +36,20 @@
                                     <tbody>
                                         <tr>
                                             <td>Name</td>
-                                            <td>{{passenger.Passenger_My_user.My_user_name}}</td>
+                                            <td>{{users.name}}</td>
  
                                         </tr>
                                         <tr>
                                             <td>phone</td>
-                                            <td>{{passenger.Passenger_My_user.My_user_phone}}</td>
+                                            <td>{{users.phone}}</td>
                                         </tr>
                                         <tr>
                                             <td>e-mail</td>
-                                            <td>{{passenger.Passenger_My_user.My_user_email}}</td>                                           
+                                            <td>{{users.email}}</td>                                           
                                         </tr>
-                                        <tr>
+                                         <tr>
                                             <td>address</td>
-                                            <td>{{passenger.Passenger_My_user.My_user_addr}}</td>
+                                            <td>{{passenger.Passenger_My_user.My_user_address}}</td>
                                         </tr>
                                         <tr>
                                             <td>gender</td>
@@ -58,7 +58,7 @@
                                         <tr>
                                             <td>Date of Birth</td>
                                             <td>{{passenger.Passenger_My_user.My_user_dateOfBirth}}</td>
-                                        </tr>
+                                        </tr> 
 
                                     </tbody>
                                 </table>
@@ -73,7 +73,6 @@
                     <!-- /.panel -->
                     </div>
                 </div>
-                </div>
                     <!-- /.col-lg-12 -->
                 <div class="row" style="padding-left: 3%">
                     <div class="col-lg-12">
@@ -87,22 +86,25 @@
                                     <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Driver</th>
+                                            <th>Start</th>
+                                            <th>Destination</th>
+                                            <th>Vehicle</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {%for booking in bookings%}
+                                        {%for bos in bookings%}
                                         <tr class="odd gradeX">
-                                            <td>{{booking.Booking_date}}</a></td>
-                                            
-                                            {% if booking.Booking_vehicle != None %}
-                                                <td>{{booking.Booking_vehicle.Vehicle_name}}</td>
+                                            <td>{{bos.Date}}</a></td>
+                                            <td>{{bos.Start}}</td>
+                                            <td>{{bos.End}}</td>
+                                            {% if bos.vehicle != None %}
+                                                <td>{{bos.vehicle}}</td>
                                             {% else %}
-                                                <td>{{booking.Booking_vehicle}}</td>
+                                                <td>None</td>
                                             {% endif %}
                                             
-                                            <td>{{booking.Booking_status}}
+                                            <td>{{bos.status}}
                                         </tr>
                                         {%endfor%}
                                     
@@ -127,9 +129,9 @@
     {% block drivertable%}
         <script>
       function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+        var uluru = {lat: parseFloat({{users.latitude}}), lng: parseFloat({{users.longitude}})};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 13,
           center: uluru
         });
         var marker = new google.maps.Marker({
@@ -141,7 +143,7 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ15BbQwlN0XqfqqeNY6uWNkZt0KtbfP4&callback=initMap">
     </script>
-        <script>
+    <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true

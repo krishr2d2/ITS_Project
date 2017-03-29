@@ -20,14 +20,14 @@
                                 <thead>
                                     <tr>
                                         <th>Vehicle name</th>
-                                        <th>Vehicle rc</th>
+                                        <th>Vehicle Number</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {%for vehicle in vehicles%}
+                                    {%for vehi in vehicles%}
                                     <tr class="odd gradeX">
-                                        <td><a href="/Transport/vehicle_details/{{vehicle.id}}">{{vehicle.Vehicle_name}}</a></td>
-                                        <td>{{vehicle.Vehicle_rc}}</td>
+                                        <td><a href="/Transport/vehicle_details/{{vehi.vehicle_name}}">{{vehi.vehicle_name}}</a></td>
+                                        <td>{{vehi.vehicle}}</td>
                                     </tr>
                                     {%endfor%}
                                     

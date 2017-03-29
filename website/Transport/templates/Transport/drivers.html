@@ -27,15 +27,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {%for driver in drivers%}
+                                    
+                                    {%for driver in users%}
                                     <tr class="odd gradeC">
-
                                                 
-
-                                        <td>{{driver.Driver_My_user.My_user_name}}</td>
-                                        <td>{{driver.Driver_My_user.My_user_phone}}</td>
-                                        <td>{{driver.Driver_currentVehicle.Vehicle_name}}</td>
-                                        <td>{{driver.Driver_currentVehicle.Vehicle_rc}}</td>
+                                        <td>{{driver.Driver_name}}</td>
+                                        <td>{{driver.phone}}</td>
+                                        <td><a href="/Transport/vehicle_details/{{driver.vehicle_name}}">{{driver.vehicle_name}}</a></td>
+                                        <!-- <td>{{driver.vehicle_name}}</td> -->
+                                        <td>{{driver.vehicle}}</td>
                                     </tr>
                                     {%endfor%}
                                     

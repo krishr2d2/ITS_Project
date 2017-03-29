@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^alldrivers/',views.alldrivers, name='alldrivers'),
     url(r'^allvehicles/',views.allvehicles,name='allvehicles'),    
     url(r'^passenger_details/(?P<name_id>[1-6])/$',views.passenger_details,name="passenger_details"),
-    url(r'^driver_details/(?P<name_id>[1-6])/$',views.driver_details,name="driver_details"),
-    url(r'^vehicle_details/(?P<name_id>[1-6])/$',views.vehicle_details,name="vehicle_details"),
+    url(r'^driver_details/(?P<name_id>car_[1-6])/$',views.driver_details,name="driver_details"),#### not used....
+    url(r'^vehicle_details/(?P<name_id>car_[1-6])/$',views.vehicle_details,name="vehicle_details"),
+    ####
+    url(r'^update_driver/$',views.update_driver,name='update_driver'),
 ]

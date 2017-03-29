@@ -22,18 +22,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {%for passenger in passengers%}
+                                    {%for ind in users%}
                                         <tr class="odd gradeX">
-                                            <td><a href="/Transport/passenger_details/{{passenger.id}}">{{passenger.Passenger_My_user.My_user_name}}</a></td>
-                                            <td>{{passenger.Passenger_My_user.My_user_phone}}</td>
-                                            <td>{{passenger.Passenger_My_user.My_user_email}}</td>
+                                            <td><a href="/Transport/passenger_details/{{ind.0}}">{{ind.1.name}}</a></td>
+                                            <td>{{ind.1.phone}}</td>
+                                            <td>{{ind.1.email}}</td>
                                         </tr>
                                     {%endfor%}
-                                    
+
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
-                            
+
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -41,7 +41,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
                 </div>
-        {%endblock%} 
+        {%endblock%}
     {%block drivertable%}
 
     <script>
