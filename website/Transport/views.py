@@ -179,6 +179,7 @@ def update_driver(request,name_id):
         # print 
         form = UpdateDriver()
     return render(request, "Transport/update_driver.html",{'form':form,'name':name_id})
+
 @login_required
 def passenger_details(request,name_id):                         #Details of passenger with id name_id
 
@@ -204,5 +205,8 @@ def passenger_details(request,name_id):                         #Details of pass
 
         return render(request,"Transport/passenger.html",context)
 
+@login_required
+def aboutus(request):
+    return render(request,"Transport/aboutus.html",{})
 
 

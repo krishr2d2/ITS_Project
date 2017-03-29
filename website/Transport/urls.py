@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^vehicle_details/(?P<name_id>car_[1-6])/$',views.vehicle_details,name="vehicle_details"),
     ####
     url(r'^update_driver/(?P<name_id>car_[1-6])/$',views.update_driver,name="update_driver"),
+    url(r'^aboutus/$',views.aboutus,name='aboutus'),
 ]
