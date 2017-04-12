@@ -96,6 +96,22 @@
                                             <td>{{bos.status}}
                                         </tr>
                                         {%endfor%}
+
+                                         {%for los in l2%}
+                                        <tr class="odd gradeX">
+                                            <td>{{los.date}}</a></td>
+                                            <td>{{los.start}}</td>
+                                            <td>{{los.end}}</td>
+                                            {% if los.vehicle != None %}
+                                                <td><a href="/Transport/vehicle_details/{{bos.vehicle}}">{{los.vehicle}}</a></td>
+                                                <!-- <td>{{bos.vehicle}}</td> -->
+                                            {% else %}
+                                                <td>None</td>
+                                            {% endif %}
+                                            
+                                            <td>{{los.Status}}
+                                        </tr>
+                                        {%endfor%}
                                     
                                     </tbody>
                                 </table>

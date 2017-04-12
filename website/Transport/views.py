@@ -185,22 +185,35 @@ def passenger_details(request,name_id):                         #Details of pass
 
         users = db.child("My_user/Rider/"+str(name_id)).get()
         l = {p.key():p.val() for p in users.each() if p.val() != None}
+
+        bo2 = db.child("My_user/Rider/Bookings").get()
+        l2 = [p.val() for p in bo2.each() if p.val() != None]
+
         books = []
+        books2 = []
         try:
             for j in l:
                 if (j=='Booking'):
                     for ids in l['Booking']:
                         books.append(l['Booking'][ids])
-            # bookings  = Booking.objects.filter(Booking_passenger=passenger)
-            print books
+            # bookings  = Booking.objects.filter(Bookinging_passenger=passenger)
+            # print books
+            for j in l2 :
+                if (j['email'] == l['email']):
+                    books2.append(j)
+            
+            print books2
+            
         except:
             books  = []
-            print books
+            books2 = []
+            # print books
             # print '----->'+str(name_id)+'<-------'
 
         context = {
         "users" : l,
-        "bookings": books
+        "bookings": books,
+        "l2" : books2
         }
 
         return render(request,"Transport/passenger.html",context)
