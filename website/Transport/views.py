@@ -148,17 +148,31 @@ def vehicle_details(request,name_id):                           #Details of vehi
                             if (j[1]['Booking'][ids]['vehicle'] == name_id):
                                 books.append([j[1]['name'],j[1]['Booking'][ids],j[0]])
 
+
         except:
             books  = [-1]
             # print '----for vehicles-->'+str(name_id)+'<-------'
+        vehicle_context = {p.key():p.val() for p in vehicle.each() if p.val() != None}
+        print vehicle_context
+        raw_latlon = vehicle_context['Coordinates']['P1'].split("|")
+        ru = []
+        
 
+        if raw_latlon[0] == 'None' :
+            ru = [[float(vehicle_context['latitude']),float(vehicle_context['longitude'])]]
+        else :
+            for k in range(len(raw_latlon)) :
+                ru.append(raw_latlon[k].split(","))
+                ru[k] = map(float,ru[k])
+            
         context = {
         #"vehi_driver":vehi_driver,
-        "vehi":{p.key():p.val() for p in vehicle.each() if p.val() != None},
+        "vehi": vehicle_context,
         "bookings":books,
+        "path":ru,
         }
         # context['vehi'] = filter(lambda a: a!= None, context['vehi'])
-        # print context['vehi']
+        #print ru
         return render(request,"Transport/vehicle.html",context)
 
 @login_required

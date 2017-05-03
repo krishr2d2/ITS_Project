@@ -93,7 +93,7 @@
 									<td><a href="/Transport/passenger_details/{{bos.2}}">
 											{{bos.0}}</a></td>
 									<td>{{bos.1.Start}}</td>
-									<td>{{bos.1.End}}</td>
+									<td>{{bos.1.End}}	</td>
 									<td>{{bos.1.status}}</td>                                         
 								</tr>
 								{%endfor%}                                   
@@ -118,6 +118,22 @@ function initMap() {
 		zoom: 14,
 		center: {lat: parseFloat({{vehi.latitude}}), lng: parseFloat({{vehi.longitude}})}
 	});
+	var flightPlanCoordinates = [
+	{%for a in path%}
+	          {lat: parseFloat({{a.0}}), lng: parseFloat({{a.1}})},
+
+         {%endfor%}
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+
 	var marker = new google.maps.Marker({
 		position: {lat: parseFloat({{vehi.latitude}}), lng: parseFloat({{vehi.longitude}})},
 		map: map
