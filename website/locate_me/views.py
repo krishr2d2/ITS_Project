@@ -15,17 +15,17 @@ def index(request,vehi,lat,lon,status):
     coord_l = db.child("My_user").child("Driver").child(vehi).child("Coordinates").get()
     if status == 'false' :
         try :
-            if coord_l.each() == None :
-                coord_l = db.child("My_user").child("Driver").child(vehi).child("Coordinates").get()
-            
-            coord_list = [p.val() for p in coord_l.each()]
-
-            db.child("My_user").child("Driver").child(vehi).child("Coordinates").update({"P1":"None"})
-            
-
             lat = float(lat)
             lon = float(lon)
-            if (lat/1000 != 1.0 or lon/1000 != 1.0):
+            if (lat/1000 != 1.0 and lon/1000 != 1.0):
+                if coord_l.each() == None :
+                    coord_l = db.child("My_user").child("Driver").child(vehi).child("Coordinates").get()
+            
+                coord_list = [p.val() for p in coord_l.each()]
+
+                db.child("My_user").child("Driver").child(vehi).child("Coordinates").update({"P1":"None"})
+            
+            
                 db.child("My_user").child("Driver").child(vehi).update({"latitude":lat, "longitude":lon})
                 return HttpResponse("<h3>"+vehi+" @</br>lat: "+str(lat)+"</br>lon: "+str(lon)+"</h3>")
             else :
@@ -36,23 +36,24 @@ def index(request,vehi,lat,lon,status):
 
     elif status == 'true' :
         try :
-        #if(1==1):
-            if coord_l.each() == None :
-                coord_l = db.child("My_user").child("Driver").child(vehi).child("Coordinates").get()
-            
-            coord_list = [p.val() for p in coord_l.each()]
-
-            if (coord_list[0] == 'None'):
-                new_latlon = str(lat)+','+str(lon)
-            else :
-                new_latlon = str(coord_list[0]) + '|' + str(lat)+','+str(lon)
-                
-            db.child("My_user").child("Driver").child(vehi).child("Coordinates").update({'P1': new_latlon})
-
             lat = float(lat)
             lon = float(lon)
-            if (lat/1000 != 1.0 or lon/1000 != 1.0):
-                k = db.child("My_user").child("Drive").child(vehi).child("Coordinates")
+            if (lat/1000 != 1.0 and lon/1000 != 1.0):
+
+                if coord_l.each() == None :
+                    coord_l = db.child("My_user").child("Driver").child(vehi).child("Coordinates").get()
+            
+                coord_list = [p.val() for p in coord_l.each()]
+
+                if (coord_list[0] == 'None'):
+                    new_latlon = str(lat)+','+str(lon)
+                else :
+                    new_latlon = str(coord_list[0]) + '|' + str(lat)+','+str(lon)
+                
+                db.child("My_user").child("Driver").child(vehi).child("Coordinates").update({'P1': new_latlon})
+
+                        
+                db.child("My_user").child("Driver").child(vehi).update({"latitude":lat, "longitude":lon})
                 return HttpResponse("<h3>"+vehi+" @</br>lat: "+str(lat)+"</br>lon: "+str(lon)+"</h3>"+"\nStatus: "+status)
             else :
                 return HttpResponse("<h3>The given lat/lon are inappropriate (1000's)...</h3>")
